@@ -26,11 +26,10 @@ public class ProducerWithKeys {
 
         // send data
         Callback callback = new Callback() {
-            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+            public void onCompletion(RecordMetadata m, Exception e) {
                 if (e == null) {
-                    logger.info("\n\n" + "Received new metadata\n" + "Topic: " + recordMetadata.topic() + "\n"
-                            + "Partition: " + recordMetadata.partition() + "\n" + "Offset: " + recordMetadata.offset()
-                            + "\n" + "Timestamp: " + recordMetadata.timestamp() + "\n");
+                    logger.info("Record Metadata - Topic: {}\tPartition: {}\tOffset: {}\tTimestamp: {}", m.topic(),
+                            m.partition(), m.offset(), m.timestamp());
                 } else {
                     logger.error("Error while publishing");
                 }
